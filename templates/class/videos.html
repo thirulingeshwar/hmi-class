@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Class Videos</title>
+</head>
+<body>
+  <h2>Welcome, {{ name }}</h2>
+  <h3>Class Videos</h3>
+
+  <ul>
+    <li>Video 1 - <a href="#">Watch</a></li>
+    <li>Video 2 - <a href="#">Watch</a></li>
+    <li>Video 3 - <a href="#">Watch</a></li>
+  </ul>
+
+  <button onclick="markComplete()">Mark as Completed</button>
+
+  <script>
+    function markComplete() {
+      fetch('/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: "{{ email }}" })
+      }).then(res => res.json()).then(data => {
+        alert("Class marked as completed!");
+      });
+    }
+  </script>
+</body>
+</html>

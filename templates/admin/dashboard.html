@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/admin_style.css') }}">
+</head>
+<body>
+  <h2>📋 Admin Dashboard</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.status }}</td>
+        <td>
+          {% if user.status == "pending" %}
+            <button onclick="updateStatus('{{ user.email }}', 'accepted')">✅ Accept</button>
+            <button onclick="updateStatus('{{ user.email }}', 'rejected')">❌ Reject</button>
+          {% elif user.status == "accepted" %}
+            📘 Learning
+          {% elif user.status == "completed" %}
+            ✅ Completed
+          {% else %}
+            Unknown
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <script src="{{ url_for('static', filename='admin/admin_script.js') }}"></script>
+</body>
+</html>
